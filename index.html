@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FTD CALL CHECKLIST</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://bnxs-my.sharepoint.com/:i:/g/personal/keagan_banxso_com/Ee6hk3UTk59DvMPLOGzVzQMBkWsu4oCoepdDjIWtj9Dw-A?e=ye02BQ">
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #FFA500; margin: 0; padding: 0; }
+        .container { max-width: 1200px; margin: 50px auto; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: flex; flex-direction: column; gap: 20px; }
+        h1 { margin-top: 0; font-size: 24px; color: #800080; display: flex; align-items: center; }
+        h1 img { width: 180px; height: auto; margin-right: 15px; }
+        .button-container, .checklist-container { display: flex; justify-content: space-between; gap: 20px; }
+        button { padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; text-align: center; background-color: #FFA500; color: white; }
+        button:hover { background-color: #FFA500; }
+        .checklist { list-style-type: none; padding: 0; margin: 0; width: 45%; }
+        .checklist li { display: flex; align-items: center; margin-bottom: 10px; }
+        .checklist input[type="checkbox"] { margin-right: 10px; cursor: pointer; }
+        .checklist label { font-size: 18px; color: #800080; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #FFA500; font-weight: bold; }
+        input[type="text"], select { width: 100%; border: 1px solid #ddd; padding: 5px; border-radius: 4px; box-sizing: border-box; }
+        .notepad textarea { width: 100%; height: 150px; border: 2px solid purple; padding: 10px; border-radius: 4px; font-size: 16px; }
+        .editable-field { display: none; margin-top: 10px; }
+        .editable-field input { width: calc(100% - 10px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><img src="data:image/jpeg;base64,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" alt="Logo">CALL CHECK LIST AND KYC</h1>
+            <div class="button-container">
+                <button onclick="clearPage()">Clear Page</button>
+                <button onclick="saveInformation()">Save</button>
+            </div>
+            <div id="confirmation-stamp" style="display: none; color: green; font-size: 20px;">Checklist Completed!</div>
+        </div>
+        <div class="checklist-container">
+            <div class="checklist">
+                <ul id="checklist">
+                    <li>
+                        <input type="checkbox" id="item4">
+                        <label for="item4">
+                            <span style="color: red;">(Mandatory)<br>I am a representative at Afrimarkets working under supervision, we are licensed and regulated by the FSCA with FSP no. 52813. All calls are recorded for your security as well as ours.</span>
+                        </label>
+                    </li>
+                    <li><input type="checkbox" id="item1"><label for="item1"> Introduction</label></li>
+                    <li><input type="checkbox" id="item2"><label for="item2"> Calls Are Recorded</label></li>
+                    <li><input type="checkbox" id="item3"><label for="item3"> FSCA/FSP 52813</label></li>
+                    <li><input type="checkbox" id="item8"><label for="item8"> Platform guidance</label></li>
+                    <li><input type="checkbox" id="item9"><label for="item9"> Verification Code</label></li>
+                    <li><input type="checkbox" id="item10"><label for="item10"> KYC Filters</label></li>
+                    <li><input type="checkbox" id="item11"><label for="item11"> Full Names</label></li>
+                    <li><input type="checkbox" id="item12"><label for="item12"> Identification Number</label></li>
+                    <li><input type="checkbox" id="item13"><label for="item13"> Purpose of SM and Preferred Contact Time</label></li>
+                </ul>
+                <button onclick="clearChecklist()">Clear Ticks</button>
+            </div>
+            <div class="table-container">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>SA Citizen</th>
+                            <td>
+                                <label><input type="radio" name="sa-citizen" value="yes" onclick="toggleEditableField(false)"> Yes</label>
+                                <label><input type="radio" name="sa-citizen" value="no" onclick="toggleEditableField(true)"> No</label>
+                                <div class="editable-field" id="sa-citizen-editable">
+                                    <input type="text" placeholder="Enter additional details">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr><th>Age</th><td><select id="age"><option value="">Select Age</option><script>for(let i=18;i<=84;i++)document.write(`<option value="${i}">${i}</option>`);</script></select></td></tr>
+                        <tr><th>Occupation</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Income</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Goal</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Marital Status</th><td>
+                            <select id="marital-status">
+                                <option value="">Select Status</option>
+                                <option value="single">Single</option>
+                                <option value="married">Married</option>
+                                <option value="divorced">Divorced</option>
+                                <option value="widowed">Widowed</option>
+                            </select>
+                        </td></tr>
+                        <tr><th>Full Name</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>ID Number</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Location</th><td>
+                            <select id="location">
+                                <option value="">Select Location</option>
+                                <option value="Eastern Cape">Eastern Cape</option>
+                                <option value="Free State">Free State</option>
+                                <option value="Gauteng">Gauteng</option>
+                                <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+                                <option value="Limpopo">Limpopo</option>
+                                <option value="Mpumalanga">Mpumalanga</option>
+                                <option value="Northern Cape">Northern Cape</option>
+                                <option value="Western Cape">Western Cape</option>
+                                <option value="North West">North West</option>
+                            </select>
+                        </td></tr>
+                        <tr><th>Verification Code Provided</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Bonus Confirmed</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Preferred SM Time</th><td><input type="text" placeholder="Enter information"></td></tr>
+                        <tr><th>Other Income</th><td><input type="text" placeholder="Enter information"></td></tr>
+                    </tbody>
+                </table>
+                <br>
+                <button onclick="copyTableContent()">Copy Table Content</button>
+            </div>
+        </div>
+        
+        <div class="notepad">
+            <textarea placeholder="Enter your notes here..."></textarea>
+            <button onclick="copyNotepadContent()">Copy Notepad Content</button>
+        </div>
+    </div>
+
+    <script>
+        function copyNotepadContent() {
+            const notepadContent = document.querySelector('.notepad textarea').value;
+            navigator.clipboard.writeText(notepadContent).then(() => alert('Notepad content copied!'));
+        }
+
+        function copyTableContent() {
+            let tableText = '';
+            document.querySelectorAll('.table-container table tr').forEach(row => {
+                const headerCell = row.querySelector('th'), dataCell = row.querySelector('td');
+                if (headerCell && dataCell) {
+                    let dataText = headerCell.textContent.trim() === 'SA Citizen' ? 
+                        (document.querySelector('input[name="sa-citizen"]:checked')?.nextSibling.textContent.trim() || '') : 
+                        (dataCell.querySelector('input[type="text"]')?.value.trim() || dataCell.querySelector('select')?.value.trim() || '');
+                    if (headerCell.textContent.trim() === 'SA Citizen' && document.querySelector('input[name="sa-citizen"][value="no"]').checked) {
+                        dataText += ' | ' + document.getElementById('sa-citizen-editable').querySelector('input').value.trim();
+                    }
+                    if (dataText) tableText += `${headerCell.textContent.trim()}: ${dataText}\n`;
+                }
+            });
+            navigator.clipboard.writeText(tableText).then(() => alert('Entered information copied!'));
+        }
+
+        function clearPage() {
+            document.querySelectorAll('.checklist input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+            document.querySelectorAll('.table-container input[type="text"], .table-container select').forEach(input => {
+                if (input.tagName === 'SELECT') input.selectedIndex = 0;
+                else input.value = '';
+            });
+            document.querySelectorAll('input[name="sa-citizen"]').forEach(radio => radio.checked = false);
+            document.getElementById('sa-citizen-editable').style.display = 'none';
+            document.querySelector('.notepad textarea').value = '';
+        }
+
+        function clearChecklist() {
+            document.querySelectorAll('.checklist input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
+        }
+
+        function toggleEditableField(show) {
+            document.getElementById('sa-citizen-editable').style.display = show ? 'block' : 'none';
+        }
+
+        function saveInformation() {
+            const checklistItems = Array.from(document.querySelectorAll('.checklist input[type="checkbox"]')).map((checkbox) => ({
+                item: checkbox.nextElementSibling.textContent.trim(),
+                checked: checkbox.checked,
+            }));
+
+            const tableData = Array.from(document.querySelectorAll('.table-container table tr')).map((row) => {
+                const headerCell = row.querySelector('th');
+                const dataCell = row.querySelector('td');
+                let value = '';
+
+                if (headerCell && dataCell) {
+                    value = headerCell.textContent.trim() === 'SA Citizen' ?
+                        (document.querySelector('input[name="sa-citizen"]:checked')?.nextSibling.textContent.trim() || '') :
+                        (dataCell.querySelector('input[type="text"]')?.value.trim() || dataCell.querySelector('select')?.value.trim() || '');
+                    if (headerCell.textContent.trim() === 'SA Citizen' && document.querySelector('input[name="sa-citizen"][value="no"]').checked) {
+                        value += ' | ' + document.getElementById('sa-citizen-editable').querySelector('input').value.trim();
+                    }
+                }
+
+                return { header: headerCell ? headerCell.textContent.trim() : '', value };
+            });
+
+            const notepadContent = document.querySelector('.notepad textarea').value;
+
+            // Create a text representation of the data
+            let dataToSave = 'Checklist Items:\n';
+            checklistItems.forEach(item => {
+                dataToSave += `${item.item}: ${item.checked ? 'Checked' : 'Unchecked'}\n`;
+            });
+
+            dataToSave += '\nTable Data:\n';
+            tableData.forEach(row => {
+                dataToSave += `${row.header}: ${row.value}\n`;
+            });
+
+            dataToSave += `\nNotepad Content:\n${notepadContent}`;
+
+            // Prompt user for filename
+            const filename = prompt("Enter the filename:", "checklist_data.txt") || "checklist_data.txt";
+
+            // Create a blob from the text data
+            const blob = new Blob([dataToSave], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            // Create a temporary anchor element to trigger the download
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename; // Use the user-defined filename
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Show confirmation stamp
+            document.getElementById('confirmation-stamp').style.display = 'block';
+
+            // Optional: Remove stamp after a few seconds
+            setTimeout(() => {
+                document.getElementById('confirmation-stamp').style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
